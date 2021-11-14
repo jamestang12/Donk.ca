@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { isWidthUp } from '@material-ui/core'
 import "./james.css"
+
 const Test = ({test, tester}) => {
     const [value, setValue] = useState("")
 
@@ -21,12 +22,12 @@ const Test = ({test, tester}) => {
             {/* test and {value} */}
             <h1>Login</h1>
             <form method="post">
-                <input name="username" placeholder="Enter Username"/>
+                <input class="input-field" name="username" placeholder="Enter Username"/>
                 <br></br>
-                <input name="password" placeholder="Enter Password"/>
+                <input class="input-field" name="password" placeholder="Enter Password" type="password"/>
                 <br></br>
-                <input name="login" value="Log In" type="submit"/>
-                <input name="register" value="Register" type="submit"/>
+                <input class="input-button" name="login" value="Log In" type="submit"/>
+                <input class="input-button" name="register" value="Register" type="submit"/>
             </form>
         </div>
     )
