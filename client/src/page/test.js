@@ -33,6 +33,7 @@ const Test = ({test, tester}) => {
             <p>Choose a link below.</p>
             <ul>
                 <li><Link to="/home">Home</Link></li>
+                <li><Link to="/listing">Listing</Link></li>
             </ul>
         </div>
     )

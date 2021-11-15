@@ -8,6 +8,7 @@ import Home from "./page/home";
 //Redux
 import {Provider} from 'react-redux'
 import store from './store'
+import listing from './page/listing';
 
 const App = () =>{
   return (
@@ -17,6 +18,7 @@ const App = () =>{
       <Fragment>
         <Route exact path="/" component={Test}/>
         <Route exact path="/home" component={Home}/>
+        <Route exact path="/listing" component={listing}/>
       </Fragment>
     </Router>
     </Provider>
