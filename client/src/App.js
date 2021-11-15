@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import { Fragment } from 'react';
 import Test from "./page/test";
 import Alerts from './components/layout/alert';
+import Home from "./page/home";
 //Redux
 import {Provider} from 'react-redux'
 import store from './store'
@@ -15,6 +16,7 @@ const App = () =>{
     <Router>
       <Fragment>
         <Route exact path="/" component={Test}/>
+        <Route exact path="/home" component={Home}/>
       </Fragment>
     </Router>
     </Provider>
