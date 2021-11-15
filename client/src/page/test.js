@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
 import {tester} from '../action/testing'
 import { useState } from 'react'
@@ -29,6 +30,11 @@ const Test = ({test, tester}) => {
                 <input class="input-button" name="login" value="Log In" type="submit"/>
                 <input class="input-button" name="register" value="Register" type="submit"/>
             </form>
+            <p>Choose a link below.</p>
+            <ul>
+                <li><Link to="/home">Home</Link></li>
+                <li><Link to="/listing">Listing</Link></li>
+            </ul>
         </div>
     )
 }
