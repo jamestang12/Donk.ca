@@ -4,9 +4,13 @@ const connectDB = require('./config/db');
 const bodyParser = require('body-parser'); 
 const cookieParaer = require('cookie-parser');
 const cors = require('cors')
+const errorHandler = require('./middleware/error');
 
 //Load env vars
 dotenv.config({path: './config/config.env'})
+
+//Route files
+const items = require('./routes/items');
 
 //Connect to db
 connectDB()
@@ -28,6 +32,12 @@ app.use(cors())
 const PORT = process.env.PORT || 5000;
 
 app.get('/test',(req,res) => res.status(200).send("Hello World"))
+
+//Mount routes
+app.use('/api/v1/items', items)
+
+
+app.use(errorHandler)
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
 
