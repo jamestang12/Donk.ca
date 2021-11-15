@@ -7,16 +7,80 @@ const fs = require('fs')
 //@desc    Get all items
 //@route   GET /api/v1/items
 //@access  Public
-exports.getItems = asyncHandler(async (req, res,next) => {
+exports.getItems = asyncHandler(async (req, res, next) => {
     const result = await Item.find()
     res.status(200).json({success: true, data: result})
+})
+
+//@desc    Get item by id
+//@route   GET /api/v1/items/:id
+//@access  Public
+exports.getItemById = asyncHandler(async (req, res, next) => {
+    const item = await Item.findById(req.params.id);
+    if(!item){
+        res.status(404).json({success: false, data: `Resource not found with id of ${req.params.id}`})
+    }
+    res.status(200).json({success: true, data: item})
+})
+
+//@desc    Get items by username
+//@route   GET /api/v1/items/user/:username
+//@access  Public
+exports.getItemByUsername = asyncHandler(async (req, res, next) => {
+    const item = await Item.find({user: req.params.username})
+    if(!item || item.length === 0){
+        res.status(404).json({success: false, data: `Resource not found with id of ${req.params.username}`})
+    }
+    res.status(200).json({success: true, data: item})
+})
+
+//@desc    Update item by id
+//@route   PUT /api/v1/items/:id
+//@access  Private
+exports.updateItemById = asyncHandler(async (req, res, next) => {
+    let item = await Item.findById(req.params.id)
+
+    if(!Item){
+        res.status(404).json({success: false, data: `Resource not found with id of ${req.params.id}`})
+    }
+
+    //Need to add user stuff when user route is up
+
+    if(req.body.photos && req.body.photos.length !== 0){
+        req.body.photos = req.body.photos.concat(item.photos)
+    }
+    
+    item = await Item.findByIdAndUpdate(req.params.id, req.body,{
+        new: true,
+        runValidators: true
+    })
+
+    res.status(200).json({success: true, data: item})
+})
+
+
+//@desc    Delete items by id
+//@route   DELETE /api/v1/items/:id
+//@access  Public
+exports.deleteItemById = asyncHandler(async (req, res, next) => {
+    const item = await Item.findById(req.params.id)
+    
+    if(!Item){
+        res.status(404).json({success: false, data: `Resource not found with id of ${req.params.id}`})
+    }
+
+    //Need to add user stuff when user route is up
+    
+    item.remove()
+
+    res.status(200).json({success: true, data: "Item removed"})
 })
 
 
 //@desc    Create items
 //@route   Post /api/v1/items
 //@access  Private
-exports.createItem = asyncHandler(async (req, res,next) => {
+exports.createItem = asyncHandler(async (req, res, next) => {
     
     console.log(req.body)
     if(req.body.photos === undefined || req.body.photos.length === 0){
@@ -30,7 +94,7 @@ exports.createItem = asyncHandler(async (req, res,next) => {
 //@desc    Create items
 //@route   Post /api/v1/items/image
 //@access  Private
-exports.uploadImageForCreateItem = asyncHandler(async (req, res,next) => {
+exports.uploadImageForCreateItem = asyncHandler(async (req, res, next) => {
     const S3_ID = process.env.S3_ID
     const S3_SECRET = process.env.S3_SECRET
     const BUCKET_NAME = process.env.BUCKET_NAME
