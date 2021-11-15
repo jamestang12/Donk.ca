@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParaer = require('cookie-parser');
 const cors = require('cors')
 const errorHandler = require('./middleware/error');
+const fileupload = require('express-fileupload')
 
 //Load env vars
 dotenv.config({path: './config/config.env'})
@@ -32,6 +33,9 @@ app.use(cors())
 const PORT = process.env.PORT || 5000;
 
 app.get('/test',(req,res) => res.status(200).send("Hello World"))
+
+// File uploading
+app.use(fileupload())
 
 //Mount routes
 app.use('/api/v1/items', items)
