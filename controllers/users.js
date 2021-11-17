@@ -4,10 +4,11 @@ const User = require('../models/user')
 
 
 
-//@desc    Create user
-//@route   Post /api/v1/users
+//@desc    Get user by id
+//@route   Post /api/v1/users/:id
 //@access  Public
 exports.getUserById = asyncHandler(async (req,res,next) => {
+    const user = await User.findById(req.params.id).select('-cardCareNumber');
 
-    res.status(200).json({success: true, data: "User route"})
+    res.status(200).json({success: true, data: user})
 })

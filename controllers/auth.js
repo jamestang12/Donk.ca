@@ -64,3 +64,18 @@ const sendTokenRosponse = (user, statusCode,res) => {
         data: token
     });
 }
+
+//@desc    Get current looged in user
+//@route   GET /api/v1/auth/logout
+//@access  Prive
+exports.logout = asyncHandler(async(req, res, next) =>{
+    res.cookie('token', 'none',{
+        expires: new Date(Date.now() + 2 * 1000),
+        httpOnly: true
+    });
+
+    res.status(200).json({
+        success: true,
+        data: {}
+    })
+})
