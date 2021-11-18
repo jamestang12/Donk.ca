@@ -44,7 +44,9 @@ exports.updateItemById = asyncHandler(async (req, res, next) => {
         res.status(404).json({success: false, data: `Resource not found with id of ${req.params.id}`})
     }
 
-    //Need to add user stuff when user route is up
+    if(item.userId.toString() !== req.user._id.toString()){
+        res.status(401).json({success: false, data: "Not authorized"})
+    }
 
     if(req.body.photos && req.body.photos.length !== 0){
         req.body.photos = req.body.photos.concat(item.photos)
@@ -61,7 +63,7 @@ exports.updateItemById = asyncHandler(async (req, res, next) => {
 
 //@desc    Delete items by id
 //@route   DELETE /api/v1/items/:id
-//@access  Public
+//@access  Private
 exports.deleteItemById = asyncHandler(async (req, res, next) => {
     const item = await Item.findById(req.params.id)
     
@@ -69,8 +71,9 @@ exports.deleteItemById = asyncHandler(async (req, res, next) => {
         res.status(404).json({success: false, data: `Resource not found with id of ${req.params.id}`})
     }
 
-    //Need to add user stuff when user route is up
-    
+    if(item.userId.toString() !== req.user._id.toString()){
+        res.status(401).json({success: false, data: "Not authorized"})
+    }    
     item.remove()
 
     res.status(200).json({success: true, data: "Item removed"})
@@ -82,6 +85,10 @@ exports.deleteItemById = asyncHandler(async (req, res, next) => {
 //@access  Private
 exports.createItem = asyncHandler(async (req, res, next) => {
     
+    
+    req.body.user = req.user.username
+    req.body.userId = req.user._id
+    // console.log(req.user)
     console.log(req.body)
     if(req.body.photos === undefined || req.body.photos.length === 0){
         res.status(400).json({success: false, data: "please include at least 1 image"})

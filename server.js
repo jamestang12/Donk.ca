@@ -12,6 +12,8 @@ dotenv.config({path: './config/config.env'})
 
 //Route files
 const items = require('./routes/items');
+const users = require('./routes/users')
+const auth = require('./routes/auth')
 
 //Connect to db
 connectDB()
@@ -39,6 +41,8 @@ app.use(fileupload())
 
 //Mount routes
 app.use('/api/v1/items', items)
+app.use('/api/v1/users', users)
+app.use('/api/v1/auth', auth)
 
 
 app.use(errorHandler)
