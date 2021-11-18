@@ -9,7 +9,7 @@
   npm install # install packages for client
 ```
 
-## Start the appliction
+## Starting the appliction
 ```bash
-    npm run dev # run this at root of the proejct, this will run the server and client concurrently
+    npm run dev # run this at root of the project, this will run the server and client concurrently
 ```

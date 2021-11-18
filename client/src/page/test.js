@@ -18,6 +18,7 @@ const Test = ({test, tester}) => {
         setValue(test.test_message)
     },[test.test_message])
 
+    
     return (
         <div>
             {/* test and {value} */}

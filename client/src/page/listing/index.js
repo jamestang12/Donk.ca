@@ -16,12 +16,16 @@ const Index = ({test, tester}) => {
     useEffect(() => {
         setValue(test.test_message)
     },[test.test_message])
-
+    
+    // Testing if button works
+    const greetUser = (name) => {
+        console.log(`Hello ${name}!`);
+      }
     
     return (
         <div>
-            <Button variant="contained" color="primary">
-                This doesn't work atm
+            <Button onClick={() => greetUser("User")} variant="contained" color="primary">
+                Hello World!
             </Button>
         </div>
     )
